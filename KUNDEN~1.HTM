@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kundenbefragung – PK-Ruhr Pflegekraftwerk</title>
+  <style>
+    :root {
+      --green: #71bf92;
+      --green-dark: #4fa374;
+      --gray: #5b5b5b;
+      --light: #f7f9f8;
+      --border: #e0e0e0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--light);
+      color: var(--gray);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--green);
+      color: #fff;
+      padding: 28px 24px 22px;
+      text-align: center;
+    }
+    .header .logo-text {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 8px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    /* Progress bar */
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.3);
+      height: 4px;
+      margin-top: 18px;
+      border-radius: 2px;
+      overflow: hidden;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .progress-bar {
+      background: #fff;
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+      border-radius: 2px;
+    }
+    .progress-label {
+      font-size: 11px;
+      opacity: 0.8;
+      margin-top: 4px;
+      text-align: center;
+    }
+
+    /* Main */
+    .container {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    /* Intro box */
+    .intro-box {
+      background: #fff;
+      border-left: 4px solid var(--green);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      border-radius: 0 6px 6px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #444;
+    }
+    .intro-box strong { color: var(--gray); }
+
+    /* Section label */
+    .section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--green-dark);
+      font-weight: 700;
+      margin-bottom: 6px;
+      margin-top: 28px;
+    }
+    .section-label:first-of-type { margin-top: 0; }
+
+    /* Question card */
+    .question-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
+    .question-card .q-num {
+      font-size: 11px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .question-card .q-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    /* Star rating */
+    .star-rating {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    .star-rating input { display: none; }
+    .star-rating label {
+      font-size: 30px;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.15s;
+      line-height: 1;
+    }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label {
+      color: var(--green);
+    }
+    .star-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 6px;
+      padding: 0 2px;
+    }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .radio-option:hover { border-color: var(--green); background: #f0faf4; }
+    .radio-option input[type="radio"] { accent-color: var(--green); width: 16px; height: 16px; }
+    .radio-option.selected { border-color: var(--green); background: #f0faf4; }
+
+    /* Checkbox group */
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .checkbox-option:hover { border-color: var(--green); background: #f0faf4; }
+    .checkbox-option input[type="checkbox"] { accent-color: var(--green); width: 16px; height: 16px; }
+
+    /* Textarea */
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--gray);
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { outline: none; border-color: var(--green); }
+    textarea::placeholder { color: #bbb; }
+
+    /* Submit */
+    .submit-wrap { margin-top: 28px; text-align: center; }
+    .submit-btn {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 14px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.1s;
+      width: 100%;
+      max-width: 380px;
+    }
+    .submit-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .submit-btn:disabled { background: #aaa; cursor: not-allowed; transform: none; }
+    .anonym-note {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    /* Thank you */
+    #thank-you {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    #thank-you .check { font-size: 64px; margin-bottom: 16px; }
+    #thank-you h2 { font-size: 24px; color: var(--green-dark); margin-bottom: 12px; }
+    #thank-you p { font-size: 15px; color: #666; line-height: 1.6; max-width: 400px; margin: 0 auto; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #bbb;
+      padding: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 20px; }
+      .star-rating label { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-text">Pflegekraftwerk Ruhr GmbH &amp; Co. KG</div>
+  <h1>Kundenbefragung 2026</h1>
+  <p>Ihre Meinung hilft uns, unseren Service für Sie kontinuierlich zu verbessern. Die Befragung ist anonym und dauert ca. 3–4 Minuten.</p>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+  <div class="progress-label" id="progress-label">0 von 9 Fragen beantwortet</div>
+</div>
+
+<div class="container">
+
+  <div class="intro-box">
+    <strong>Sehr geehrte Damen und Herren,</strong><br>
+    als Ihr Partner in der Arbeitnehmerüberlassung ist uns Ihre Zufriedenheit besonders wichtig. Bitte nehmen Sie sich einen Moment Zeit für diese kurze Befragung – Ihre Antworten fließen direkt in unsere Weiterentwicklung ein.
+  </div>
+
+  <form id="survey-form" novalidate>
+
+    <!-- Allgemein -->
+    <div class="section-label">Allgemeine Zufriedenheit</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 1 von 9</div>
+      <div class="q-text">Wie zufrieden sind Sie insgesamt mit der Zusammenarbeit mit PK-Ruhr?</div>
+      <div class="star-rating" data-q="q1">
+        <input type="radio" name="q1" id="q1-5" value="5"><label for="q1-5" title="Sehr zufrieden">★</label>
+        <input type="radio" name="q1" id="q1-4" value="4"><label for="q1-4" title="Zufrieden">★</label>
+        <input type="radio" name="q1" id="q1-3" value="3"><label for="q1-3" title="Neutral">★</label>
+        <input type="radio" name="q1" id="q1-2" value="2"><label for="q1-2" title="Eher unzufrieden">★</label>
+        <input type="radio" name="q1" id="q1-1" value="1"><label for="q1-1" title="Sehr unzufrieden">★</label>
+      </div>
+      <div class="star-labels"><span>Sehr unzufrieden</span><span>Sehr zufrieden</span></div>
+    </div>
+
+    <!-- Qualität des Personals -->
+    <div class="section-label">Qualität des Personals</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 2 von 9</div>
+      <div class="q-text">Wie beurteilen Sie die fachliche Kompetenz unserer überlassenen Mitarbeiter?</div>
+      <div class="star-rating" data-q="q2">
+        <input type="radio" name="q2" id="q2-5" value="5"><label for="q2-5">★</label>
+        <input type="radio" name="q2" id="q2-4" value="4"><label for="q2-4">★</label>
+        <input type="radio" name="q2" id="q2-3" value="3"><label for="q2-3">★</label>
+        <input type="radio" name="q2" id="q2-2" value="2"><label for="q2-2">★</label>
+        <input type="radio" name="q2" id="q2-1" value="1"><label for="q2-1">★</label>
+      </div>
+      <div class="star-labels"><span>Sehr schlecht</span><span>Sehr gut</span></div>
+    </div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 3 von 9</div>
+      <div class="q-text">Wie zufrieden sind Sie mit Zuverlässigkeit und Pünktlichkeit unserer Mitarbeiter im Einsatz?</div>
+      <div class="star-rating" data-q="q3">
+        <input type="radio" name="q3" id="q3-5" value="5"><label for="q3-5">★</label>
+        <input type="radio" name="q3" id="q3-4" value="4"><label for="q3-4">★</label>
+        <input type="radio" name="q3" id="q3-3" value="3"><label for="q3-3">★</label>
+        <input type="radio" name="q3" id="q3-2" value="2"><label for="q3-2">★</label>
+        <input type="radio" name="q3" id="q3-1" value="1"><label for="q3-1">★</label>
+      </div>
+      <div class="star-labels"><span>Sehr unzufrieden</span><span>Sehr zufrieden</span></div>
+    </div>
+
+    <!-- Service & Kommunikation -->
+    <div class="section-label">Service &amp; Kommunikation</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 4 von 9</div>
+      <div class="q-text">Wie zufrieden sind Sie mit der Erreichbarkeit und dem Service bei PK-Ruhr?</div>
+      <div class="star-rating" data-q="q4">
+        <input type="radio" name="q4" id="q4-5" value="5"><label for="q4-5">★</label>
+        <input type="radio" name="q4" id="q4-4" value="4"><label for="q4-4">★</label>
+        <input type="radio" name="q4" id="q4-3" value="3"><label for="q4-3">★</label>
+        <input type="radio" name="q4" id="q4-2" value="2"><label for="q4-2">★</label>
+        <input type="radio" name="q4" id="q4-1" value="1"><label for="q4-1">★</label>
+      </div>
+      <div class="star-labels"><span>Sehr unzufrieden</span><span>Sehr zufrieden</span></div>
+    </div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 5 von 9</div>
+      <div class="q-text">Wie schnell reagiert PK-Ruhr auf Ihre Anfragen und Rückmeldungen?</div>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="q5" value="Sehr schnell (gleicher Tag)"> Sehr schnell (gleicher Tag)</label>
+        <label class="radio-option"><input type="radio" name="q5" value="Schnell (innerhalb 24 Stunden)"> Schnell (innerhalb 24 Stunden)</label>
+        <label class="radio-option"><input type="radio" name="q5" value="Akzeptabel (1–2 Tage)"> Akzeptabel (1–2 Tage)</label>
+        <label class="radio-option"><input type="radio" name="q5" value="Zu langsam"> Zu langsam</label>
+      </div>
+    </div>
+
+    <!-- Flexibilität & Verfügbarkeit -->
+    <div class="section-label">Flexibilität &amp; Verfügbarkeit</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 6 von 9</div>
+      <div class="q-text">Wie gut gelingt es PK-Ruhr, kurzfristige Personalanfragen zu besetzen?</div>
+      <div class="star-rating" data-q="q6">
+        <input type="radio" name="q6" id="q6-5" value="5"><label for="q6-5">★</label>
+        <input type="radio" name="q6" id="q6-4" value="4"><label for="q6-4">★</label>
+        <input type="radio" name="q6" id="q6-3" value="3"><label for="q6-3">★</label>
+        <input type="radio" name="q6" id="q6-2" value="2"><label for="q6-2">★</label>
+        <input type="radio" name="q6" id="q6-1" value="1"><label for="q6-1">★</label>
+      </div>
+      <div class="star-labels"><span>Sehr schlecht</span><span>Sehr gut</span></div>
+    </div>
+
+    <!-- Verwaltung & Abrechnung -->
+    <div class="section-label">Verwaltung &amp; Abrechnung</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 7 von 9</div>
+      <div class="q-text">Wie zufrieden sind Sie mit der Rechnungsstellung und administrativen Abwicklung?</div>
+      <div class="star-rating" data-q="q7">
+        <input type="radio" name="q7" id="q7-5" value="5"><label for="q7-5">★</label>
+        <input type="radio" name="q7" id="q7-4" value="4"><label for="q7-4">★</label>
+        <input type="radio" name="q7" id="q7-3" value="3"><label for="q7-3">★</label>
+        <input type="radio" name="q7" id="q7-2" value="2"><label for="q7-2">★</label>
+        <input type="radio" name="q7" id="q7-1" value="1"><label for="q7-1">★</label>
+      </div>
+      <div class="star-labels"><span>Sehr unzufrieden</span><span>Sehr zufrieden</span></div>
+    </div>
+
+    <!-- Weiterempfehlung -->
+    <div class="section-label">Weiterempfehlung</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 8 von 9</div>
+      <div class="q-text">Würden Sie PK-Ruhr als Personaldienstleister weiterempfehlen?</div>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="q8" value="Ja, definitiv"> Ja, definitiv</label>
+        <label class="radio-option"><input type="radio" name="q8" value="Wahrscheinlich schon"> Wahrscheinlich schon</label>
+        <label class="radio-option"><input type="radio" name="q8" value="Unentschieden"> Unentschieden</label>
+        <label class="radio-option"><input type="radio" name="q8" value="Eher nicht"> Eher nicht</label>
+        <label class="radio-option"><input type="radio" name="q8" value="Nein"> Nein</label>
+      </div>
+    </div>
+
+    <!-- Freitext -->
+    <div class="section-label">Ihr Feedback</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 9 von 9</div>
+      <div class="q-text">Was können wir verbessern? Was läuft besonders gut? (optional)</div>
+      <textarea name="q9_freitext" placeholder="Ihr Kommentar …" id="q9"></textarea>
+    </div>
+
+    <!-- Optionaler Name -->
+    <div class="question-card" style="border-top: 1px dashed #ddd; background: #fafafa;">
+      <div class="q-text" style="font-size: 13px; color: #777; font-weight: normal; margin-bottom: 10px;">
+        🔒 Diese Befragung ist vollständig anonym. Wenn Sie möchten, können Sie optional Ihren Namen hinterlassen:
+      </div>
+      <input
+        type="text"
+        name="name_optional"
+        placeholder="Ihr Name (optional) …"
+        style="width:100%; padding: 10px 14px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; font-family: inherit; color: #5b5b5b;"
+      >
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="submit-btn">Befragung absenden ✓</button>
+      <div class="anonym-note">🔒 Ihre Antworten sind vollständig anonym.</div>
+    </div>
+
+  </form>
+
+  <div id="thank-you">
+    <div class="check">✅</div>
+    <h2>Herzlichen Dank!</h2>
+    <p>Ihre Rückmeldung ist bei uns eingegangen. Wir schätzen Ihr Vertrauen und arbeiten kontinuierlich daran, unseren Service für Sie zu verbessern.</p>
+  </div>
+
+</div>
+
+<div class="footer">PK-Ruhr Pflegekraftwerk Ruhr GmbH &amp; Co. KG &nbsp;·&nbsp; Kundenbefragung 2026 &nbsp;·&nbsp; Anonym &amp; vertraulich</div>
+
+<script>
+  // Progress tracking
+  const totalQ = 9;
+  const answered = new Set();
+
+  function updateProgress() {
+    const pct = Math.round((answered.size / totalQ) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent =
+      answered.size + ' von ' + totalQ + ' Fragen beantwortet';
+  }
+
+  // Track radio answers (q1–q8)
+  document.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const name = input.name;
+      // map q1-q8 to question numbers
+      const num = parseInt(name.replace('q', ''));
+      answered.add(num);
+      updateProgress();
+      // highlight selected radio option
+      const card = input.closest('.radio-group');
+      if (card) {
+        card.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+        input.closest('.radio-option')?.classList.add('selected');
+      }
+    });
+  });
+
+  // Track textarea (q9)
+  document.getElementById('q9').addEventListener('input', function() {
+    if (this.value.trim().length > 0) answered.add(9);
+    else answered.delete(9);
+    updateProgress();
+  });
+
+  // Submit
+  const form = document.getElementById('survey-form');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('.submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet …';
+
+    const ENDPOINT = 'https://formspree.io/f/xdarpjpv';
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('thank-you').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Befragung absenden ✓';
+        alert('Fehler beim Senden. Bitte versuchen Sie es erneut.');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Befragung absenden ✓';
+      alert('Keine Verbindung. Bitte prüfen Sie Ihre Internetverbindung.');
+    }
+  });
+</script>
+
+</body>
+</html>
