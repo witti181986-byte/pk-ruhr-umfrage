@@ -348,9 +348,9 @@
       <div class="q-num">Frage 5 von 9</div>
       <div class="q-text">Wie schnell reagiert PK-Ruhr auf Ihre Anfragen und Rückmeldungen?</div>
       <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q5" value="Sehr schnell (gleicher Tag)"> Sehr schnell (gleicher Tag)</label>
-        <label class="radio-option"><input type="radio" name="q5" value="Schnell (innerhalb 24 Stunden)"> Schnell (innerhalb 24 Stunden)</label>
-        <label class="radio-option"><input type="radio" name="q5" value="Akzeptabel (1–2 Tage)"> Akzeptabel (1–2 Tage)</label>
+        <label class="radio-option"><input type="radio" name="q5" value="Sehr schnell"> Sehr schnell</label>
+        <label class="radio-option"><input type="radio" name="q5" value="Schnell"> Schnell</label>
+        <label class="radio-option"><input type="radio" name="q5" value="Akzeptabel"> Akzeptabel</label>
         <label class="radio-option"><input type="radio" name="q5" value="Zu langsam"> Zu langsam</label>
       </div>
     </div>
@@ -402,13 +402,69 @@
       </div>
     </div>
 
+    <!-- Frage 9: Wünsche Mehrfachauswahl -->
+    <div class="section-label">Ihre Wünsche</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 9 von 11</div>
+      <div class="q-text">Was wünschen Sie sich von einem Personaldienstleister am meisten? <span style="font-size:12px; font-weight:normal; color:#aaa;">(Mehrfachauswahl möglich)</span></div>
+      <div class="checkbox-group">
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Erreichbarkeit 24/7"> Erreichbarkeit 24/7</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Schnelle Rückmeldung"> Schnelle Rückmeldung</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Ehrliche Antworten"> Ehrliche Antworten</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Regelmäßige E-Mail mit freien Mitarbeitenden"> Regelmäßige E-Mail mit freien Mitarbeitenden</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Regelmäßige Anrufe mit freien Mitarbeitenden"> Regelmäßige Anrufe mit freien Mitarbeitenden</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Freundliche Disponenten/innen"> Freundliche Disponenten/innen</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Regelmäßige Feedbackgespräche zur Zusammenarbeit"> Regelmäßige Feedbackgespräche zur Zusammenarbeit</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Feedback zu Einsätzen (beidseitig)"> Feedback zu Einsätzen (beidseitig)</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Unkomplizierte Rechnungsstellung"> Unkomplizierte Rechnungsstellung</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Digitale Stundennachweise"> Digitale Stundennachweise</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Weniger Bürokratie (Rahmenvertrag)"> Weniger Bürokratie (Rahmenvertrag)</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Regelmäßige Besuche des Dienstleisters"> Regelmäßige Besuche des Dienstleisters</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Niedrigere Verrechnungssätze"> Niedrigere Verrechnungssätze</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Mehr Personal extern"> Mehr Personal extern</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Besseres Personal extern"> Besseres Personal extern</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Externes Personal mit besseren Deutschkenntnissen"> Externes Personal mit besseren Deutschkenntnissen</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Mehr Fachkräfte"> Mehr Fachkräfte</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Mehr Assistenzkräfte"> Mehr Assistenzkräfte</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Mehr Hilfskräfte"> Mehr Hilfskräfte</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Personalvermittlung von Leitungsstellen"> Personalvermittlung von Leitungsstellen</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Personalvermittlung von Fachkräften"> Personalvermittlung von Fachkräften</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Gespräch mit GF wegen Ausbau der Zusammenarbeit"> Gespräch mit GF wegen Ausbau der Zusammenarbeit</label>
+        <label class="checkbox-option"><input type="checkbox" name="q9_wunsch" value="Reduzierung der Zusammenarbeit"> Reduzierung der Zusammenarbeit</label>
+      </div>
+    </div>
+
     <!-- Freitext -->
     <div class="section-label">Ihr Feedback</div>
 
     <div class="question-card">
-      <div class="q-num">Frage 9 von 9</div>
-      <div class="q-text">Was können wir verbessern? Was läuft besonders gut? (optional)</div>
+      <div class="q-num">Frage 10 von 11</div>
+      <div class="q-text">Was können wir verbessern? Was läuft besonders gut?</div>
       <textarea name="q9_freitext" placeholder="Ihr Kommentar …" id="q9"></textarea>
+    </div>
+
+    <!-- Frage 11: Anonymität + optionale Angaben -->
+    <div class="section-label">Optionale Angaben</div>
+
+    <div class="question-card">
+      <div class="q-num">Frage 11 von 11</div>
+      <div class="q-text">Diese Befragung ist vollständig anonym. Wenn Sie möchten, können Sie uns optional mitteilen, wer Sie sind:</div>
+      <div style="font-size: 12px; color: #aaa; margin-bottom: 14px;">🔒 Beide Felder sind freiwillig – Ihre Antworten bleiben auch ohne Angabe vollständig vertraulich.</div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <input
+          type="text"
+          name="name_optional"
+          placeholder="Ihr Name (optional) …"
+          style="width:100%; padding: 10px 14px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; font-family: inherit; color: #5b5b5b;"
+        >
+        <input
+          type="text"
+          name="einrichtung_optional"
+          placeholder="Name der Einrichtung (optional) …"
+          style="width:100%; padding: 10px 14px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; font-family: inherit; color: #5b5b5b;"
+        >
+      </div>
     </div>
 
     <div class="submit-wrap">
@@ -430,14 +486,14 @@
 
 <script>
   // Progress tracking
-  const totalQ = 9;
+  const totalQ = 11;
   const answered = new Set();
 
   function updateProgress() {
     const pct = Math.round((answered.size / totalQ) * 100);
     document.getElementById('progress-bar').style.width = pct + '%';
     document.getElementById('progress-label').textContent =
-      answered.size + ' von ' + totalQ + ' Fragen beantwortet';
+      answered.size + ' von 9 Kernfragen beantwortet';
   }
 
   // Track radio answers (q1–q8)
@@ -475,6 +531,12 @@
     const ENDPOINT = 'https://formspree.io/f/xdarpjpv';
 
     const data = new FormData(form);
+
+    // Checkboxen für q9_wunsch zusammenfassen
+    const wuensche = Array.from(document.querySelectorAll('input[name="q9_wunsch"]:checked'))
+                         .map(el => el.value).join(', ');
+    for (const key of [...data.keys()].filter(k => k === 'q9_wunsch')) data.delete(key);
+    data.append('q9_wunsch', wuensche || '—');
 
     try {
       const res = await fetch(ENDPOINT, {
